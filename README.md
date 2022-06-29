@@ -32,8 +32,8 @@ without modifying its structure.
 ## Introduction
 
 In the real-world, different entities (people, animals, cars, you name it) are
-related in various ways. Within a single entity or group, there exist systems of
-classification. For example, the "dogs" entity or category includes pugs,
+related in various ways. Within a single entity or group, there exist systems
+of classification. For example, the "dogs" entity or category includes pugs,
 corgis, labs, etc. All of these breeds share common features because they are
 all dogs. But they all have certain unique traits as well.
 
@@ -41,14 +41,14 @@ Another example: you are writing a web application in which users are either
 admins, instructors or students. All of these entities are "users" and have
 common features, but they all have some unique traits as well.
 
-How can our code reflect that fact that these different categories of things all
-share some, or even many, characteristics but all have some unique attributes as
-well? Well, we could write separate `Admin`, `Instructor` and `Student` classes
-that each contain repetitious code to lend each of these classes shared
-attributes and behaviors. We know, however, that repetitive code is always
-something to be avoided. Not only is it time consuming, but what happens when we
-need to make a change to this shared behavior? We'd have to code the same change
-in three places.
+How can our code reflect that fact that these different categories of things
+all share some, or even many, characteristics but all have some unique
+attributes as well? Well, we could write separate `Admin`, `Instructor` and
+`Student` classes that each contain repetitious code to lend each of these
+classes shared attributes and behaviors. We know, however, that repetitive code
+is always something to be avoided. Not only is it time consuming, but what
+happens when we need to make a change to this shared behavior? We'd have to
+code the same change in three places.
 
 Instead, we can use **inheritance**. The use of inheritance allows us to create
 a family of classes with shared behavior, while still differentiating those
@@ -57,26 +57,28 @@ classes. With inheritance, we could _inherit_ the `Admin`, `Instructor` and
 class would apply to the other class.
 
 While you may not write your own classes that use inheritance very frequently,
-you will encounter it frequently as a developer, particularly when working with other
-libraries (such as Active Record, which you'll learn later in this phase). Once
-we introduce the use of databases and the challenge of connecting our programs
-to our database, you'll encounter inheritance in nearly every program you write
-for the web. More on that later.
+you will encounter it frequently as a developer, particularly when working with
+other libraries (such as SQLAlchemy, which you'll learn later in this phase).
+Once we introduce the use of databases and the challenge of connecting our
+programs to our database, you'll encounter inheritance in nearly every program
+you write for the web. More on that later.
 
 ***
 
 ## What is Inheritance?
 
-In Python, classes can inherit from one another. This means that they adopt all of
-the attributes and behaviors (i.e. all of the methods) of the parent, also
-called the **super** class. In this exercise, we'll be building our own chain of
+In Python, classes can inherit from one another. This means that they adopt all
+of the attributes and behaviors (i.e. all of the methods) of the parent, also
+called the **superclass**. In this exercise, we'll be building our own chain of
 inheritance.
+
+***
 
 ## Code Along: Basic Inheritance
 
-In this domain model, we have class `Vehicle` that will act as the parent, or
-super, class. We will create child classes, also known as **subclasses** for
-different types of `Vehicle`s, such as car.
+In this domain model, we have class `Vehicle` that will act as the **parent**,
+or **superclass**. We will create **child** classes, also known as
+**subclasses** for different types of `Vehicle`s, such as car.
 
 ### Step 1: Defining the Super Class
 
