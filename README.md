@@ -80,7 +80,7 @@ In this domain model, we have class `Vehicle` that will act as the **parent**,
 or **superclass**. We will create **child** classes, also known as
 **subclasses** for different types of `Vehicle`s, such as car.
 
-### Step 1: Defining the Super Class
+### Step 1: Defining the Superclass
 
 Open up `lib/vehicle.py`. We're going to define some methods in this parent
 class so that our subclasses, when we make them, will have access to them.
