@@ -220,6 +220,8 @@ int.__class__
 # <class 'type'>
 ```
 
+***
+
 ## Conclusion
 
 We've seen how to set up inheritance to share behavior from one class to another
