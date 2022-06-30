@@ -85,29 +85,23 @@ or **superclass**. We will create **child** classes, also known as
 Open up `lib/vehicle.py`. We're going to define some methods in this parent
 class so that our subclasses, when we make them, will have access to them.
 
-```Python
-class Vehicle
+```py
+class Vehicle:
 
-  attr_accessor :wheel_size, :wheel_number
+    def __init__(self, wheel_size, wheel_number):
+        self.wheel_size = wheel_size
+        self.wheel_number = wheel_number
 
-  def initialize(wheel_size, wheel_number)
-    @wheel_size = wheel_size
-    @wheel_number = wheel_number
-  end
+    def go(self):
+        return "vrrrrrrrooom!"
 
-  def go
-    "vrrrrrrrooom!"
-  end
+    def fill_up_tank(self):
+        return "filling up!"
 
-  def fill_up_tank
-    "filling up!"
-  end
-
-end
 ```
 
 Instances of `Vehicle` initialize with a wheel size and number. We also have
-`#go` and `#fill_up_tank` instance methods that describe some common vehicle
+`go()` and `fill_up_tank()` instance methods that describe some common vehicle
 behavior.
 
 Go ahead and paste the above Vehicle class code into your Vehicle class, and run
@@ -122,111 +116,117 @@ therefore need access to the file that contains that class.
 
 Go ahead and define the class in the following way:
 
-```Python
-class Car < Vehicle
-
-end
+```py
+class Car(Vehicle):
+    pass
 ```
 
-We use the `<` to inherit the `Car` class from `Vehicle`. Notice that there are
-_no methods defined in the `Car` class_.
-
-Run the test suite again and you'll see that you are passing a number of tests for the `Car` class.
+We use `Vehicle` as an argument for the `Car` class to note that `Car` inherits
+from `Vehicle`. Run the test suite again and you'll see that you are passing a
+number of tests for the `Car` class.
 
 Wow! We didn't write _anything_ in our `Car` class but instances of `Car` class
-_inherit_ all of the `Vehicle` methods and therefore have access to them. We're
-still failing the `#go` test however. Looks like the test is expecting the `#go`
-method on an individual car to return the phrase:
-`"VRRROOOOOOOOOOOOOOOOOOOOOOOM!!!!!"`. This is different than the return value
-of the `#go` method that we inherited from the `Vehicle` class.
+_inherit_ all of the `Vehicle` attributes and methods and therefore have access
+to them.
 
-Let's overwrite the inherited `#go` method with one specific to `Car`.
+<details><summary><em>Which arguments are required to instantiate a new
+<code>Car</code> object?</em></summary>
+<p>
+
+<h3><code>wheel_size</code> and <code>wheel_number</code></h3>
+
+<p>Remember that the <code>__init__</code> magic method requires that you
+use its arguments when instantiating a class.</p>
+<p>This includes any subclasses that inherit it!</p>
+
+</p>
+</details>
+<br/>
+
+We're still failing the `go()` test however. Looks like the test is
+expecting the `go()` method on an individual car to return the phrase:
+`"VRRROOOOOOOOOOOOOOOOOOOOOOOM!!!!!"`. This is different than the return value
+of the `go()` method that we inherited from the `Vehicle` class.
+
+Let's overwrite the inherited `go()` method with one specific to `Car`.
 
 ### Step 3: Overwriting Inherited Methods
 
 In `lib/car.py`, write the following method:
 
 ```py
-class Car < Vehicle
-  def go
-    "VRRROOOOOOOOOOOOOOOOOOOOOOOM!!!!!"
-  end
-end
+class Car(Vehicle):
+    def go(self):
+        return "VRRROOOOOOOOOOOOOOOOOOOOOOOM!!!!!"
 ```
 
 Now, run the tests again and you should be passing all of them.
 
-## Method Look-Up in Python
+***
+
+## Class Introspection
 
 How does our above example work? Well, when your program is being executed, at
-the point at which the `#go` method is invoked, the compiler will first look in
-the class to which the instance of car that we are calling the method on
-belongs. If it finds a `#go` method there, it will execute _that method_. If it
+the point at which the `go()` method is invoked, the interpreter will first look
+in the class to which the instance of car that we are calling the method on
+belongs. If it finds a `go()` method there, it will execute _that method_. If it
 doesn't find such a method there, it will move on to look in the parent class
 that this class inherits from.
 
 You can see how Python classes inherit from one another by using Python to do some
 _introspection_ on our classes.
 
-Open up the Python shell, and start by requiring the files from the `lib` folder:
+Open up the Python shell, and start by importing the files from the `lib` folder:
 
 ```py
-require_relative 'lib/vehicle'
-# => true
-require_relative 'lib/car'
-# => true
+from lib.vehicle import Vehicle
+from lib.car import Car
 ```
 
 This will let you interact with the code you've written in those files from
 within the Python shell.
 
+> NOTE: We'll dive deeper into `import` in the _"Configuring Python
+> Applications"_ module.
+
 We can ask the `Car` class what its parent, or "superclass" is (what class the
-`Car` class inherits from) with the `.superclass` method:
+`Car` class inherits from) with its `__bases__` attribute:
 
 ```py
-Car.superclass
-# => Vehicle
+Car.__bases__
+# (<class 'lib.vehicle.Vehicle'>,)
 ```
 
-We can even see what the parent class of `Vehicle` is, and up as far as we can
-go on the inheritance chain to the very top (`BasicObject`):
+> NOTE: the `__bases__` attribute is a `tuple`. This is because it shows _all_
+> superclasses of the `Car` class. While there is only one here, there are many
+> classes that inherit directly from multiple parent classes.
+
+How does this work? How can we access the `__bases__` attribute of our `Car`
+class, even though we didn't define it ourselves? The `__bases__` attribute
+is available on all Python classes, even built-in ones like the `int` class:
 
 ```py
-Car.superclass.superclass
-# => Object
-Car.superclass.superclass.superclass
-# => BasicObject
-Car.superclass.superclass.superclass.superclass
-# => nil
+int.__bases__
+# (<class 'object'>,)
 ```
 
-How does this work? How can we call the `.superclass` class method method on our
-`Car` class, even though we didn't define it ourselves? The `.superclass` method
-is available on all Python classes, even built-in ones like the `Integer` class:
+That's because all Python classes share the same metaclass: the
+[`type` class](https://realpython.com/python-metaclasses/#:~:text=type%20is%20a%20metaclass%2C%20of,instance%20of%20the%20type%20metaclass.)!
 
 ```py
-Integer.superclass
-# => Numeric
-```
-
-That's because all Python classes share the same class: the
-[`Class` class](https://Python-doc.org/core-2.7.3/Class.html)!
-
-```py
-Car.class
-# => Class
-String.class
-# => Class
+Car.__class__
+# <class 'type'>
+int.__class__
+# <class 'type'>
 ```
 
 ## Conclusion
 
 We've seen how to set up inheritance to share behavior from one class to another
-using the `<` syntax in our class definition (`class Child < Parent`), which
-lets the subclass use methods that are defined on the parent class. We also
-discussed how **method lookup** works in Python, when multiple classes define the
-same method.
-
+using parent classes as arguments in our class definition
+(`class Child(Parent)`), which lets the subclass use attributes and methods
+that are defined on the parent class. We also discussed how **class
+introspection** works in Python, when multiple classes define the same method.
 
 ***
 
@@ -234,7 +234,5 @@ same method.
 
 - [Python 3.8 Documentation](https://docs.python.org/3.8/)
 - [Inheritance - Python](https://docs.python.org/3/tutorial/classes.html#inheritance)
-- [PEP 318 - Decorators for Functions and Methods](https://peps.python.org/pep-0318/)
 - [Inheritance and Composition: A Python OOP Guide - Real Python](https://realpython.com/inheritance-composition-python/)
-- [Decorators in Python - GeeksforGeeks](https://www.geeksforgeeks.org/decorators-in-python/)
-- [Supercharge Your Classes With Python super() - Real Python](https://realpython.com/python-super/)
+- [Python Metaclasses - Real Python](https://realpython.com/python-metaclasses)
