@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from lib.car import Car
 from lib.vehicle import Vehicle
