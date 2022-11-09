@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from lib.car import Car
-from lib.vehicle import Vehicle
+from car import Car
+from vehicle import Vehicle
 
 class TestVehicle:
     '''Class "Vehicle" in vehicle.py'''

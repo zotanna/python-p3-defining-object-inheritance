@@ -1,4 +1,4 @@
-from lib.vehicle import Vehicle
+from vehicle import Vehicle
 
 class Car(Vehicle):
     pass
