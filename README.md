@@ -176,11 +176,12 @@ that this class inherits from.
 You can see how Python classes inherit from one another by using Python to do some
 _introspection_ on our classes.
 
-Open up the Python shell, and start by importing the files from the `lib` folder:
+Navigate to the `lib` folder. Open up the Python shell, and start by importing
+the classes we built there:
 
 ```py
-from lib.vehicle import Vehicle
-from lib.car import Car
+from vehicle import Vehicle
+from car import Car
 ```
 
 This will let you interact with the code you've written in those files from
@@ -194,7 +195,7 @@ We can ask the `Car` class what its parent, or "superclass" is (what class the
 
 ```py
 Car.__bases__
-# (<class 'lib.vehicle.Vehicle'>,)
+# (<class 'vehicle.Vehicle'>,)
 ```
 
 > NOTE: the `__bases__` attribute is a `tuple`. This is because it shows _all_
