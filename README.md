@@ -7,33 +7,34 @@
   - Write classes that inherit from **superclasses**.
 - Accomplish complex programming tasks using knowledge from previous modules.
 
-***
+---
 
 ## Key Vocab
 
 - **Inheritance**: a tool that allows us to recycle code by creating a class
-that "inherits" the attributes and methods of a parent class.
+  that "inherits" the attributes and methods of a parent class.
 - **Composition**: a tool that enables you to recycle code by adding objects to
-other objects. Rather than building on a base class as in inheritance,
-composition leverages the attributes and methods of an instance of another class.
-- **Subclass**: a class that inherits from another class. Colloquially called
-a "child" class.
+  other objects. Rather than building on a base class as in inheritance,
+  composition leverages the attributes and methods of an instance of another
+  class.
+- **Subclass**: a class that inherits from another class. Colloquially called a
+  "child" class.
 - **Superclass**: a class that is inherited by another class. Colloquially
-called a "parent" class.
+  called a "parent" class.
 - **Child**: another name for a subclass.
 - **Parent**: another name for a superclass.
 - **`super()`**: a built-in Python function that allows us to manipulate the
-attributes and methods of a superclass from the body of its subclass.
-- **Decorator**: syntax that allows us to add functionality to an object
-without modifying its structure.
+  attributes and methods of a superclass from the body of its subclass.
+- **Decorator**: syntax that allows us to add functionality to an object without
+  modifying its structure.
 
-***
+---
 
 ## Introduction
 
 In the real-world, different entities (people, animals, cars, you name it) are
-related in various ways. Within a single entity or group, there exist systems
-of classification. For example, the "dogs" entity or category includes pugs,
+related in various ways. Within a single entity or group, there exist systems of
+classification. For example, the "dogs" entity or category includes pugs,
 corgis, labs, etc. All of these breeds share common features because they are
 all dogs. But they all have certain unique traits as well.
 
@@ -41,14 +42,14 @@ Another example: you are writing a web application in which users are either
 admins, instructors or students. All of these entities are "users" and have
 common features, but they all have some unique traits as well.
 
-How can our code reflect that fact that these different categories of things
-all share some, or even many, characteristics but all have some unique
-attributes as well? Well, we could write separate `Admin`, `Instructor` and
-`Student` classes that each contain repetitious code to lend each of these
-classes shared attributes and behaviors. We know, however, that repetitive code
-is always something to be avoided. Not only is it time consuming, but what
-happens when we need to make a change to this shared behavior? We'd have to
-code the same change in three places.
+How can our code reflect that fact that these different categories of things all
+share some, or even many, characteristics but all have some unique attributes as
+well? Well, we could write separate `Admin`, `Instructor` and `Student` classes
+that each contain repetitious code to lend each of these classes shared
+attributes and behaviors. We know, however, that repetitive code is always
+something to be avoided. Not only is it time consuming, but what happens when we
+need to make a change to this shared behavior? We'd have to code the same change
+in three places.
 
 Instead, we can use **inheritance**. The use of inheritance allows us to create
 a family of classes with shared behavior, while still differentiating those
@@ -63,16 +64,20 @@ Once we introduce the use of databases and the challenge of connecting our
 programs to our database, you'll encounter inheritance in nearly every program
 you write for the web. More on that later.
 
-***
+---
 
 ## What is Inheritance?
 
-In Python, classes can inherit from one another. This means that they adopt all
-of the attributes and behaviors (i.e. all of the methods) of the parent, also
-called the **superclass**. In this exercise, we'll be building our own chain of
-inheritance.
+In Python, classes can inherit from one another. This means that they acquire
+all of the attributes and behaviors (i.e. all of the methods) of the parent,
+also called the **superclass**. An object can directly access public inherited
+attributes and methods. However, since private attributes are only visible in
+the defining class, the private inherited attributes must be accessed through
+public inherited methods.
 
-***
+In this exercise, we'll be building our own chain of inheritance.
+
+---
 
 ## Code Along: Basic Inheritance
 
@@ -143,8 +148,8 @@ use its arguments when instantiating a class.</p>
 </details>
 <br/>
 
-We're still failing the `go()` test however. Looks like the test is
-expecting the `go()` method on an individual car to return the phrase:
+We're still failing the `go()` test however. Looks like the test is expecting
+the `go()` method on an individual car to return the phrase:
 `"VRRROOOOOOOOOOOOOOOOOOOOOOOM!!!!!"`. This is different than the return value
 of the `go()` method that we inherited from the `Vehicle` class.
 
@@ -162,7 +167,7 @@ class Car(Vehicle):
 
 Now, run the tests again and you should be passing all of them.
 
-***
+---
 
 ## Class Introspection
 
@@ -173,8 +178,8 @@ belongs. If it finds a `go()` method there, it will execute _that method_. If it
 doesn't find such a method there, it will move on to look in the parent class
 that this class inherits from.
 
-You can see how Python classes inherit from one another by using Python to do some
-_introspection_ on our classes.
+You can see how Python classes inherit from one another by using Python to do
+some _introspection_ on our classes.
 
 Navigate to the `lib` folder. Open up the Python shell, and start by importing
 the classes we built there:
@@ -203,8 +208,8 @@ Car.__bases__
 > classes that inherit directly from multiple parent classes.
 
 How does this work? How can we access the `__bases__` attribute of our `Car`
-class, even though we didn't define it ourselves? The `__bases__` attribute
-is available on all Python classes, even built-in ones like the `int` class:
+class, even though we didn't define it ourselves? The `__bases__` attribute is
+available on all Python classes, even built-in ones like the `int` class:
 
 ```py
 int.__bases__
@@ -221,17 +226,17 @@ int.__class__
 # <class 'type'>
 ```
 
-***
+---
 
 ## Conclusion
 
 We've seen how to set up inheritance to share behavior from one class to another
 using parent classes as arguments in our class definition
-(`class Child(Parent)`), which lets the subclass use attributes and methods
+(`class Child(Parent)`), which lets the subclass acquire attributes and methods
 that are defined on the parent class. We also discussed how **class
 introspection** works in Python, when multiple classes define the same method.
 
-***
+---
 
 ## Resources
 
